@@ -1,0 +1,4 @@
+- Deployed my contracts on hardhat localnet and solved an error by replacing events with logs and .address with await ...... .getAddress()
+- Completed writing my contract but have not tested or deployed it yet
+- Implemented ChainLinkVRF to grt a random Winner
+- Created the basic setup and learned about events
