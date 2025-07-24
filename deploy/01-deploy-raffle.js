@@ -9,10 +9,23 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
 	const { deploy, log } = deployments
 	const { deployer } = await getNamedAccounts()
 	const chainId = network.config.chainId
-	let vrfCoordinatorV2Address, subscriptionId
+	let vrfCoordinatorV2Mock, vrfCoordinatorV2Address, subscriptionId
 
 	if (developmentChains.includes(network.name)) {
-		const vrfCoordinatorV2Mock = await ethers.getContract("VRFCoordinatorV2Mock")
+		// const vrfCoordinatorV2MockDeployment = await deployments.get("VRFCoordinatorV2Mock")
+		// const vrfCoordinatorV2Mock = await ethers.getContractAt(
+		// 	"VRFCoordinatorV2Mock",
+		// 	vrfCoordinatorV2MockDeployment.address,
+		// )
+
+		const vrfCoordinatorV2MockDeployment = await deployments.get("VRFCoordinatorV2Mock")
+
+		const signer = await ethers.getSigner(deployer)
+		vrfCoordinatorV2Mock = await ethers.getContractAt(
+			"VRFCoordinatorV2Mock",
+			vrfCoordinatorV2MockDeployment.address,
+			signer,
+		)
 		vrfCoordinatorV2Address = await vrfCoordinatorV2Mock.getAddress()
 
 		const transactionResponse = await vrfCoordinatorV2Mock.createSubscription()
@@ -46,6 +59,10 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
 		log: true,
 		waitConfirmations: network.config.blockConfirmations || 1,
 	})
+	await vrfCoordinatorV2Mock.addConsumer(
+		subscriptionId, // or use: await raffle.getSubscriptionId() if you expose it
+		Raffle.address,
+	)
 	if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
 		log("Verifying...")
 		await verifyContract(Raffle.address, args)

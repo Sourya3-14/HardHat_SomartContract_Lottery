@@ -1,11 +1,9 @@
-require("@nomiclabs/hardhat-waffle")
-require("@nomiclabs/hardhat-etherscan")
+require("@nomicfoundation/hardhat-toolbox")
 require("hardhat-deploy")
+require("@nomicfoundation/hardhat-verify")
 require("solidity-coverage")
 require("hardhat-gas-reporter")
-require("hardhat-contract-sizer")
 require("dotenv").config()
-
 // /**
 //  * @type import('hardhat/config').HardhatUserConfig
 //  */
@@ -102,7 +100,7 @@ module.exports = {
 		],
 	},
 	mocha: {
-		timeout: 500000, // 500 seconds max for running tests
+		timeout: 100000, // 100 seconds max for running tests
 	},
 }
 
