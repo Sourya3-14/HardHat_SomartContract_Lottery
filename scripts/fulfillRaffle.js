@@ -8,7 +8,7 @@ async function main() {
 	// console.log("📦 Raffle Deployment Info:", RaffleDeployment)
 
 	const interval = await raffle.getInterval()
-	const lastTimestamp = await raffle.getLatestTimeStamp()
+	const lastTimestamp = await raffle.getLastTimeStamp()
 	const currentTime = (await ethers.provider.getBlock("latest")).timestamp
 
 	console.log(
@@ -17,13 +17,6 @@ async function main() {
 
 	const upkeepResult = await raffle.checkUpkeep("0x")
 	const upkeepNeeded = upkeepResult[0]
-
-	console.log("🛠️ Upkeep needed:", upkeepNeeded)
-
-	if (!upkeepNeeded) {
-		console.log("⚠️ No upkeep needed now. Exiting.")
-		return
-	}
 	const raffleState = await raffle.getRaffleState()
 	console.log("🎯 Raffle state:", raffleState.toString()) // should be 0 (OPEN)
 
@@ -32,6 +25,13 @@ async function main() {
 
 	const balance = await ethers.provider.getBalance(raffle.target)
 	console.log("💰 Contract balance:", parseEther(balance.toString()))
+
+	console.log("🛠️ Upkeep needed:", upkeepNeeded)
+
+	if (!upkeepNeeded) {
+		console.log("⚠️ No upkeep needed now. Exiting.")
+		return
+	}
 
 	// raffleEntrancefee = await raffle.getEntranceFee()
 	// await raffle.enterRaffle({ value: raffleEntrancefee })
