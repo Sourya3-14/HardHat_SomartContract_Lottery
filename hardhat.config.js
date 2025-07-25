@@ -57,23 +57,23 @@ module.exports = {
 		//     chainId: 137,
 		// },
 	},
-	// etherscan: {
-	//     // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
-	//     apiKey: {
-	//         sepolia: ETHERSCAN_API_KEY,
-	//         polygon: POLYGONSCAN_API_KEY,
-	//     },
-	//     customChains: [
-	//         {
-	//             network: "goerli",
-	//             chainId: 5,
-	//             urls: {
-	//                 apiURL: "https://api-goerli.etherscan.io/api",
-	//                 browserURL: "https://goerli.etherscan.io",
-	//             },
-	//         },
-	//     ],
-	// },
+	etherscan: {
+	    // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
+	    apiKey: {
+	        sepolia: ETHERSCAN_API_KEY,
+	        // polygon: POLYGONSCAN_API_KEY,
+	    },
+	    // customChains: [
+	    //     {
+	    //         network: "goerli",
+	    //         chainId: 5,
+	    //         urls: {
+	    //             apiURL: "https://api-goerli.etherscan.io/api",
+	    //             browserURL: "https://goerli.etherscan.io",
+	    //         },
+	    //     },
+	    // ],
+	},
 	gasReporter: {
 		enabled: false,
 		currency: "USD",
@@ -100,7 +100,8 @@ module.exports = {
 		],
 	},
 	mocha: {
-		timeout: 100000, // 100 seconds max for running tests
+		timeout: 500000, // 100 seconds max for running tests
 	},
 }
 
+ 

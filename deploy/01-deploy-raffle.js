@@ -59,10 +59,17 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
 		log: true,
 		waitConfirmations: network.config.blockConfirmations || 1,
 	})
-	await vrfCoordinatorV2Mock.addConsumer(
-		subscriptionId, // or use: await raffle.getSubscriptionId() if you expose it
-		Raffle.address,
-	)
+	
+	if (developmentChains.includes(network.name)) {
+		await vrfCoordinatorV2Mock.addConsumer(subscriptionId, Raffle.address)
+	} else {
+		log(
+			"On testnet, manually add the consumer to your subscription on Chainlink VRF dashboard.",
+		)
+		log(`Subscription ID: ${subscriptionId}`)
+		log(`Raffle Contract Address: ${Raffle.address}`)
+	}
+
 	if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
 		log("Verifying...")
 		await verifyContract(Raffle.address, args)

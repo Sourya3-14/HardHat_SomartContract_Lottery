@@ -3,19 +3,19 @@ const { parseEther } = require("ethers")
 const networkConfig = {
 	11155111: {
 		name: "sepolia",
-		vrfCoordinatorV2: "0x8103B0A8A00be2DDC778e6e7eaa21791Cd364625",
-		entranceFee: parseEther("0.01"),
-		gasLane: "0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c", //750 gwei Key Hash of sepolia
-		subscriptionId: "57656272754190974756291872938338535715131453334720082248746571022841300815770",
-		callbackGasLimit: "500000",
+		vrfCoordinatorV2: "0x9DdfaCa8183c41ad55329BdeeD9F6A8d53168B1B",
+		entranceFee: parseEther("0.001"),
+		gasLane: "0x787d74caea10b2b357790d5b5247c2f63d1d91572a9846f780606e4d953677ae", //5000 gwei Key Hash of sepolia
+		subscriptionId: 6601, //last 4 digits of the subid
+		callbackGasLimit: "100000",
 		interval: "30",
 	},
 	31337: {
 		name: "hardhat",
 		vrfCoordinatorV2: "",
-		entranceFee: parseEther("0.01"),
+		entranceFee: parseEther("0.001"),
 		gasLane: "0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c", //750 gwei Key Hash of sepolia
-		callbackGasLimit: "500000",
+		callbackGasLimit: "100000",
 		interval: "30",
 	},
 }
