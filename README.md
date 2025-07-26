@@ -8,14 +8,11 @@
 2.deploy our contract using the subid
 3.register the contract with chainlink vrf and it's subid[add as consumer]
 
-```Successfully submitted source code for contract
-contracts/Raffle.sol:Raffle at 0x896D321Cbf1D5e6F564dEA84EcB96d7285650582 // use this id
-for verification on the block explorer. Waiting for verification result...
+````Successfully submitted source code for contract
+contracts/Raffle.sol:Raffle at 0xE01Bab4125d8819588620378AD7379Fb01b71221```
 
-Successfully verified contract Raffle on the block explorer.
-https://sepolia.etherscan.io/address/0x896D321Cbf1D5e6F564dEA84EcB96d7285650582#code
-
-____________________________________________________
-Done in 14.25s.```
 4.register the contract with chainlink keepers/chainlink automation[https://automation.chain.link/]
+```create a custom lojic based upkeep```
+
 5.run staging tests
+````

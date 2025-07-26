@@ -161,7 +161,7 @@ const { assert, expect } = require("chai")
 					}
 
 					const startingTimeStamp = await raffle.getLastTimeStamp()
-
+					let winnerStartingBalance
 					// FIX 3: Add timeout and better error handling
 					await new Promise(async (resolve, reject) => {
 						raffle.once("WinnerPicked", async () => {
@@ -183,6 +183,9 @@ const { assert, expect } = require("chai")
 								const raffleState = await raffle.getRaffleState()
 								const endingTimeStamp = await raffle.getLastTimeStamp()
 								const numPlayers = await raffle.getNumberOfPlayers()
+								const winnerEndingBalance = await ethers.provider.getBalance(
+									accounts[2],
+								)
 
 								assert.equal(numPlayers.toString(), "0")
 								assert.equal(raffleState.toString(), "0")
@@ -199,7 +202,12 @@ const { assert, expect } = require("chai")
 									participantAddresses.includes(recentWinner),
 									`Winner ${recentWinner} should be one of the participants`,
 								)
-
+								
+								const totalFee = raffleEntrancefee * BigInt(additionalEntrances + 1)
+								assert.equal(
+									winnerEndingBalance.toString(),
+									(winnerStartingBalance + totalFee).toString(),
+								)
 								resolve()
 							} catch (e) {
 								clearTimeout(timeout)
@@ -216,7 +224,7 @@ const { assert, expect } = require("chai")
 
 							const requestId = txReceipt.logs[1].args.requestId
 							console.log("Request ID:", requestId.toString())
-
+							winnerStartingBalance = await ethers.provider.getBalance(accounts[2])
 							console.log("Calling fulfillRandomWords...")
 							await vrfCoordinatorV2_5Mock.fulfillRandomWords(
 								requestId,

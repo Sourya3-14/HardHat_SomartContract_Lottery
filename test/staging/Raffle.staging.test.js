@@ -9,8 +9,9 @@ developmentChains.includes(network.name)
 
 			beforeEach(async function () {
 				deployer = (await getNamedAccounts()).deployer
+				const signer = await ethers.getSigner(deployer)
 				const RaffleDeployment = await deployments.get("Raffle")
-				raffle = await ethers.getContractAt("Raffle", RaffleDeployment.address)
+				raffle = await ethers.getContractAt("Raffle", RaffleDeployment.address,signer)
 				raffleEntranceFee = await raffle.getEntranceFee()
 			})
 
@@ -31,15 +32,17 @@ developmentChains.includes(network.name)
 								// add our asserts here
 								const recentWinner = await raffle.getRecentWinner()
 								const raffleState = await raffle.getRaffleState()
-								const winnerEndingBalance = await accounts[0].getBalance()
+								const winnerEndingBalance = await ethers.provider.getBalance(
+									accounts[0],
+								)
 								const endingTimeStamp = await raffle.getLastTimeStamp()
 
 								await expect(raffle.getPlayer(0)).to.be.reverted
 								assert.equal(recentWinner.toString(), accounts[0].address)
-								assert.equal(raffleState, 0)
+								assert.equal(raffleState.toString(), "0")
 								assert.equal(
 									winnerEndingBalance.toString(),
-									winnerStartingBalance.add(raffleEntranceFee).toString(),
+									(winnerStartingBalance+raffleEntranceFee).toString(),
 								)
 								assert(endingTimeStamp > startingTimeStamp)
 								resolve()
@@ -53,7 +56,7 @@ developmentChains.includes(network.name)
 						const tx = await raffle.enterRaffle({ value: raffleEntranceFee })
 						await tx.wait(1)
 						console.log("Ok, time to wait...")
-						const winnerStartingBalance = await accounts[0].getBalance()
+						const winnerStartingBalance = await ethers.provider.getBalance(accounts[0])
 
 						// and this code WONT complete until our listener has finished listening!
 					})

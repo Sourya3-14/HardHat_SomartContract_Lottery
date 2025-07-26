@@ -6,7 +6,7 @@ const networkConfig = {
 		vrfCoordinatorV2: "0x9DdfaCa8183c41ad55329BdeeD9F6A8d53168B1B",
 		entranceFee: parseEther("0.001"),
 		gasLane: "0x787d74caea10b2b357790d5b5247c2f63d1d91572a9846f780606e4d953677ae", //5000 gwei Key Hash of sepolia
-		subscriptionId: "34173559721319756141178144569491962402106007956501173962804552399864443606601", //last 4 digits of the subid
+		subscriptionId: "5312061249880548304404110078668414069758611367907681924409184796908951815397", //last 4 digits of the subid
 		// callbackGasLimit: "100000",
 		interval: "30",
 	},
