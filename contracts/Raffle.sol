@@ -23,10 +23,10 @@ contract Raffle is VRFConsumerBaseV2Plus, AutomationCompatibleInterface {
 	// VRF Variables
 	uint256 private immutable i_subscriptionId;
 	bytes32 private immutable i_keyHash;
-	uint32 private constant CALLBACK_GAS_LIMIT = 100000;
+	uint32 private constant CALLBACK_GAS_LIMIT = 60000;
 	uint16 private constant REQUEST_CONFIRMATIONS = 3;
 	uint32 private constant NUM_WORDS = 1;
-	bool private constant i_nativePayment = false; // false = pay in LINK, true = pay in ETH
+	bool private constant i_nativePayment = true; // false = pay in LINK, true = pay in ETH
 
 	// Events
 	event RaffleEnter(address indexed player);

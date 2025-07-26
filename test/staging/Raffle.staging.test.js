@@ -31,6 +31,7 @@ developmentChains.includes(network.name)
 							try {
 								// add our asserts here
 								const recentWinner = await raffle.getRecentWinner()
+								console.log("RecentWinner is" + recentWinner.toString())
 								const raffleState = await raffle.getRaffleState()
 								const winnerEndingBalance = await ethers.provider.getBalance(
 									accounts[0],
