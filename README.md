@@ -20,4 +20,5 @@
 <br/>[https://automation.chain.link/]
 <br/>`create a custom lojic based upkeep`
 
-5.run staging tests[test may be shown pending on vrf for a few seconds]
+5.run staging tests
+<br/>[test may be shown pending on vrf for a few seconds]
