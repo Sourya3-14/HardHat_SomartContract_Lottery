@@ -1,0 +1,22 @@
+{
+    "name":"Crypto Lottery",
+    "description":"A secure and transparent lottery",
+    "version":"1.0",
+    "manifest_version": 3,
+    "action":{
+        "default_popup": "src/main.jsx",
+        "default_icon": "src/assets/lottery.svg"
+    },
+    "icons":{
+        "16": "src/assets/lottery.svg",
+        "32": "src/assets/lottery.svg",
+        "48": "src/assets/lottery.svg",  
+        "128": "src/assets/lottery.svg"
+    },
+    "permissions": [
+        "tabs",
+        "bookmarks",
+        "unlimitedStorage",
+        "nativeMessaging"
+    ]
+}

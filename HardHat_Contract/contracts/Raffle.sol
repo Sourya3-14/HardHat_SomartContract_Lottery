@@ -23,7 +23,7 @@ contract Raffle is VRFConsumerBaseV2Plus, AutomationCompatibleInterface {
 	// VRF Variables
 	uint256 private immutable i_subscriptionId;
 	bytes32 private immutable i_keyHash;
-	uint32 private constant CALLBACK_GAS_LIMIT = 60000;
+	uint32 private constant CALLBACK_GAS_LIMIT = 500000;
 	uint16 private constant REQUEST_CONFIRMATIONS = 3;
 	uint32 private constant NUM_WORDS = 1;
 	bool private constant i_nativePayment = true; // false = pay in LINK, true = pay in ETH
@@ -100,7 +100,7 @@ contract Raffle is VRFConsumerBaseV2Plus, AutomationCompatibleInterface {
 		}
 		s_raffleState = RaffleState.CALCULATING;
 
-		uint256 requestId = s_vrfCoordinator.requestRandomWords(
+		uint256 requestId = s_vrfCoordinator.requestRandomWords( //s_vrfCoordinator is saved in VRFConsumerBaseV2Plus
 			VRFV2PlusClient.RandomWordsRequest({
 				keyHash: i_keyHash,
 				subId: i_subscriptionId,

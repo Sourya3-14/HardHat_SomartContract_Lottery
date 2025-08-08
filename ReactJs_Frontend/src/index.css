@@ -1,0 +1,1037 @@
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    /* -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; */
+    background: linear-gradient(to right, #1e293b, #0f172a);
+}
+
+/* Header Styles */
+.app-header {
+    background: linear-gradient(to right, #0f172a, #1e293b);
+    border-bottom: 1px solid #475569;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 80rem;
+    margin: 0 auto;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: linear-gradient(to right, #60a5fa, #0a0349);
+    /* -webkit-background-clip: text; */
+    background-clip: text;
+    /* -webkit-text-fill-color: transparent; */
+    color: transparent;
+}
+
+.app-subtitle {
+    color: #94a3b8;
+    font-size: 0.875rem;
+}
+
+@media (max-width: 640px) {
+    .app-subtitle {
+        display: none;
+    }
+}
+
+/* Wallet Connection Styles */
+.wallet-connection {
+    position: relative;
+}
+
+.error-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.error-toast-content {
+    background: #2d1b1b;
+    border: 1px solid #5d2d2d;
+    border-left: 4px solid #ef4444;
+    color: #ff6b6b;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 300px;
+    max-width: 400px;
+}
+
+.error-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.error-text {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    flex: 1;
+}
+
+.error-close {
+    background: none;
+    border: none;
+    color: #ff6b6b;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+    flex-shrink: 0;
+}
+
+.error-close:hover {
+    background: rgba(239, 68, 68, 0.2);
+}
+
+.connect-button {
+    background: linear-gradient(to right, #2563eb, #9333ea);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.connect-button:hover {
+    background: linear-gradient(to right, #1d4ed8, #7c3aed);
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.25);
+}
+
+.connecting-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #374151;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}
+
+.loading-spinner {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #60a5fa;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.connecting-text {
+    color: #d1d5db;
+}
+
+.connected-wallet {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: #374151;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #4b5563;
+}
+
+.connected-wallet:hover {
+    background-color: #4b5563;
+    border-color: #3b82f6;
+}
+
+.connection-indicator {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: #34d399;
+    border-radius: 50%;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.wallet-address {
+    color: white;
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+}
+
+/* Wallet Info Popup */
+.wallet-popup {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.5rem);
+    background-color: #1e293b;
+    border: 1px solid #4b5563;
+    border-radius: 0.75rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    padding: 1rem;
+    min-width: 16rem;
+    z-index: 50;
+}
+
+.popup-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #475569;
+    margin-bottom: 0.75rem;
+}
+
+.popup-wallet-icon {
+    font-size: 1.125rem;
+}
+
+.popup-wallet-name {
+    color: white;
+    font-weight: 500;
+}
+
+.popup-section {
+    margin-bottom: 0.75rem;
+}
+
+.popup-label {
+    color: #94a3b8;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.popup-address {
+    color: white;
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    background-color: #0f172a;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    word-break: break-all;
+}
+
+.copy-button {
+    background: #374151;
+    border: 1px solid #4b5563;
+    color: #d1d5db;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 0.5rem;
+}
+
+.copy-button:hover {
+    background: #4b5563;
+    color: white;
+}
+
+.popup-network {
+    color: white;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.network-indicator {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: #34d399;
+    border-radius: 50%;
+}
+
+.disconnect-button {
+    width: 100%;
+    background-color: #dc2626;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 0.75rem;
+}
+
+.disconnect-button:hover {
+    background-color: #b91c1c;
+}
+
+/* Wallet Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #1e293b;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 28rem;
+    margin: 0 1rem;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border: 1px solid #475569;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #94a3b8;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+    color: white;
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+.wallet-grid {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.wallet-option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #4b5563;
+    border-radius: 0.75rem;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: white;
+}
+
+.wallet-option:hover:not(.wallet-option-disabled) {
+    border-color: #3b82f6;
+    background-color: #374151;
+}
+
+.wallet-option-disabled {
+    background-color: #0f172a;
+    cursor: not-allowed;
+    color: #64748b;
+    border-color: #475569;
+}
+
+.wallet-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.wallet-info {
+    flex: 1;
+    text-align: left;
+}
+
+.wallet-name {
+    font-size: 1rem;
+    font-weight: 500;
+    display: block;
+}
+
+.wallet-status {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* LOTTERY STYLES - MOBILE FIRST APPROACH */
+
+.lottery-entrance {
+    padding: 20px;
+    min-height: calc(100vh - 100px);
+}
+
+.lottery-card {
+    background: linear-gradient(135deg, #667eea 0%, #080d40 100%);
+    border-radius: 20px;
+    padding: 30px;
+    color: white;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.lottery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.lottery-header h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.status-badge {
+    /* width:300px; */
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    gap: 10px;
+    /* display: inline flex; */
+    /* justify-content: space-between; */
+}
+
+.status-badge.open {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+    border: 2px solid #22c55e;
+}
+
+.status-badge.closed {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border: 2px solid #ef4444;
+}
+
+.loading-spinner {
+    border: 2px solid transparent;
+    border-top: 2px solid #22c55e;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    animation: spin 0.6s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.lottery-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.recent-winner {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.winner-label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    opacity: 0.9;
+}
+
+.winner-address {
+    font-family: monospace;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.entry-form {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-group label {
+    /* display: block; */
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.entry-input {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 1px 2px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    height: 40px;
+}
+
+.entry-input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.cost-summary {
+    margin-bottom: 20px;
+}
+
+.cost-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.cost-value {
+    font-weight: bold;
+}
+
+.error-message {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid #ef4444;
+    color: #fca5a5;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.transaction-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.transaction-status.pending,
+.transaction-status.confirming {
+    background: rgba(59, 130, 246, 0.2);
+    border: 1px solid #3b82f6;
+    color: #93c5fd;
+}
+
+.transaction-status.success {
+    background: rgba(34, 197, 94, 0.2);
+    border: 1px solid #22c55e;
+    color: #86efac;
+}
+
+.enter-button {
+    width: 100%;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border: none;
+    color: white;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.enter-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.enter-button:disabled {
+    background: rgba(255, 255, 255, 0.2);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.transaction-hash {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.hash-link {
+    color: #93c5fd;
+    text-decoration: none;
+}
+
+.hash-link:hover {
+    text-decoration: underline;
+}
+
+/* DESKTOP RESPONSIVE STYLES */
+@media (min-width: 768px) {
+    .lottery-entrance {
+        padding: 40px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .lottery-card {
+        max-width: 1000px;
+        width: 100%;
+        padding: 40px;
+        border-radius: 25px;
+    }
+
+    .lottery-header {
+        margin-bottom: 30px;
+    }
+
+    .lottery-header h2 {
+        font-size: 36px;
+    }
+
+    /* .lottery-status{
+        width: 200px;
+    } */
+
+    /* Desktop Layout - Split into two main sections */
+    .lottery-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: start;
+    }
+
+    .lottery-info-section {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .lottery-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .stat-item {
+        padding: 20px 15px;
+        border-radius: 15px;
+    }
+
+    .stat-label {
+        font-size: 14px;
+    }
+
+    .stat-value {
+        font-size: 24px;
+    }
+
+    .recent-winner {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .winner-label {
+        font-size: 16px;
+    }
+
+    .winner-address {
+        font-size: 18px;
+    }
+
+    /* Entry form takes the right side */
+    .entry-form {
+        padding: 30px;
+        height: fit-content;
+        position: sticky;
+        top: 20px;
+    }
+
+    .form-group label {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .entry-input-group {
+        margin-bottom: 25px;
+    }
+
+    .quantity-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+
+    .entry-input {
+        width: 100px;
+        font-size: 24px;
+        padding: 15px;
+    }
+
+    .cost-summary {
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+
+    .cost-item {
+        margin-bottom: 12px;
+    }
+
+    .enter-button {
+        padding: 20px;
+        font-size: 18px;
+        border-radius: 15px;
+    }
+}
+
+/* Large Desktop Adjustments */
+@media (min-width: 1200px) {
+    .lottery-card {
+        max-width: 1200px;
+        padding: 50px;
+    }
+
+    .lottery-content {
+        gap: 60px;
+    }
+
+    .lottery-stats {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+
+    .stat-item {
+        padding: 25px 20px;
+    }
+}
+
+/* Mobile styles remain as default, no changes needed for mobile view */
+
+/* ========================================
+   WINNER POPUP STYLES - ADDED STYLES
+   ======================================== */
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    backdrop-filter: blur(8px);
+}
+
+.winner-popup {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 0;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: popupAppear 0.3s ease-out;
+    overflow: hidden;
+}
+
+@keyframes popupAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.winner-popup .popup-header {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 0;
+}
+
+.winner-popup .popup-header h2 {
+    color: white;
+    margin: 0;
+    font-size: 24px;
+    text-align: center;
+    flex: 1;
+}
+
+.close-button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.close-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.popup-content {
+    padding: 30px;
+    text-align: center;
+    color: white;
+}
+
+.winner-trophy {
+    font-size: 80px;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-10px);
+    }
+
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.winner-info {
+    margin-bottom: 20px;
+}
+
+.winner-info .winner-label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.winner-address-large {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffd700;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.prize-info {
+    margin-bottom: 20px;
+}
+
+.prize-label {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.prize-amount {
+    font-size: 28px;
+    font-weight: bold;
+    color: #00ff88;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.congratulations {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 20px 0;
+}
+
+.popup-footer {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.celebrate-button {
+    background: linear-gradient(45deg, #ff6b6b, #feca57);
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+.celebrate-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+}
+
+.success-icon {
+    font-size: 18px;
+}
+
+.winner-calculation-status {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.calculation-note {
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Mobile responsive adjustments for popup */
+@media (max-width: 640px) {
+    .winner-popup {
+        max-width: 95%;
+        margin: 0 10px;
+    }
+
+    .winner-popup .popup-header h2 {
+        font-size: 20px;
+    }
+
+    .winner-trophy {
+        font-size: 60px;
+    }
+
+    .winner-address-large {
+        font-size: 18px;
+    }
+
+    .prize-amount {
+        font-size: 24px;
+    }
+
+    .popup-content {
+        padding: 20px;
+    }
+}
